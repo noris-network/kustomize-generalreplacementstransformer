@@ -1,0 +1,15 @@
+apiVersion: noris.net/v1alpha1
+kind: GeneralReplacementsTransformer
+metadata:
+  name: test1
+selectValues:
+  - name: namespace
+    resource:
+      kind: Ingress
+      name: ingress-one
+      fieldPath: metadata.namespace
+  - name: databaseHost
+    resource:
+      kind: ConfigMap
+      name: configmap-one
+      fieldPath: data.databaseHost

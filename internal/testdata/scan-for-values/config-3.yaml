@@ -1,0 +1,11 @@
+apiVersion: noris.net/v1alpha1
+kind: GeneralReplacementsTransformer
+metadata:
+  name: test
+selectValues:
+  - name: db
+    splat: true
+    resource:
+      kind: ConfigMap
+      name: mydbconfig
+      fieldPath: data.*

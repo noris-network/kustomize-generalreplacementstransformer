@@ -1,0 +1,9 @@
+apiVersion: noris.net/v1alpha1
+kind: GeneralReplacementsTransformer
+metadata:
+  name: test
+selectValues:
+  - name: secret
+    resource:
+      kind: Secret
+      fieldPath: data.*

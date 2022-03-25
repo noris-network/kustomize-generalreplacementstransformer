@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mydbconfig1
+data:
+  config: a={{.a}}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mydbconfig2
+data:
+  config: b={{.b}}

@@ -1,0 +1,9 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: secret
+type: Opaque
+data:
+  PASSWORD: e3sucGFzc3dvcmR9fQ==
+  FOO_TOKEN: e3suZm9vVG9rZW59fQ==
+  BAR_TOKEN: W1suZm9vVG9rZW5dXQ==

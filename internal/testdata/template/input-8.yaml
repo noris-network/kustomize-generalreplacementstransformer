@@ -1,0 +1,7 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: secret
+type: Opaque
+data:
+  foo: e3suZm9vVG9rZW4=

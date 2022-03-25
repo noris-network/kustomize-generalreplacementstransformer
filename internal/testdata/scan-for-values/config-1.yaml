@@ -1,0 +1,26 @@
+apiVersion: noris.net/v1alpha1
+kind: GeneralReplacementsTransformer
+metadata:
+  name: test
+selectValues:
+  - name: namespace-with-default
+    default: default-namespace
+    resource:
+      kind: Deployment
+      name: deployment404
+      fieldPath: metadata.namespace
+  - name: namespace-no-default
+    resource:
+      kind: Deployment
+      name: mydeployment404
+      fieldPath: metadata.namespace
+  - name: namespace
+    resource:
+      kind: Deployment
+      name: mydeployment
+      fieldPath: metadata.namespace
+  - name: mySecretName
+    resource:
+      kind: Secret
+      name: mysecret
+      fieldPath: data.PASSWORD

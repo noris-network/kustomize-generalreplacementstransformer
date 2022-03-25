@@ -1,0 +1,42 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: myindex
+data:
+  index.html: |
+    <h1>Welcome to {{.hostname}}</h1>
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mydbconfig
+data:
+  host: mydbhost
+  name: myexampledb
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  PASSWORD: R2VuZXJhbFJlcGxhY2VtZW50c1RyYW5zZm9ybWVy
+  FOO_TOKEN: Zm9vLWJhci1iYXotMTIz
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mydeployment
+  namespace: myspace
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          image: myapp:v1.0.0
+        - name: exporter
+          image: myexporter:v0.4.2
+        - name: monitor
+          image: mymonitorr:v0.2.3
+---
+

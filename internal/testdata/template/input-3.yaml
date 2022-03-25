@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: index
+data:
+  index.html: |
+    <i>{{ toDate "2006-01-02" "2022-03-25" | date "2006/01/02" }}</i>
+    <b>{{ "abc" | upper | repeat 3 }}</b>

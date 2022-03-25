@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: index
+data:
+  test.txt: |
+    a={{.var}}
+    b=[[.var]]
+    c=((.var))

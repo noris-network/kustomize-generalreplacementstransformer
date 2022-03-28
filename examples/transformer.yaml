@@ -1,0 +1,40 @@
+apiVersion: noris.net/v1alpha1
+kind: GeneralReplacementsTransformer
+metadata:
+  name: example
+
+values:
+  hostname: foo.example.com
+
+selectValues:
+  - name: namespace
+    resource:
+      kind: ConfigMap
+      name: demo-files
+      fieldPath: metadata.namespace
+  - name: password
+    resource:
+      kind: Secret
+      name: demo-secret
+      fieldPath: data.PASSWORD
+
+replacements:
+  - resource:
+      kind: ConfigMap
+      name: demo-files
+    type: template
+  - resource:
+      kind: ConfigMap
+      name: demo-templates
+    type: template
+    delimiters:
+      - "[["
+      - "]]"
+  - resource:
+      kind: ConfigMap
+      name: demo-environment
+    type: template
+  - resource:
+      kind: Secret
+      name: demo-secret
+    type: template

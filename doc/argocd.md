@@ -51,4 +51,4 @@ Use a kustomize [patchStrategicMerge](https://github.com/kubernetes-sigs/kustomi
     metadata:
       name: argocd-cm
     data:
-      kustomize.buildOptions: --enable_alpha_plugins
+      kustomize.buildOptions: --enable-alpha-plugins

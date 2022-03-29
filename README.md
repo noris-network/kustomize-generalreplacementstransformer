@@ -75,8 +75,10 @@ Create a kustomization.yaml file:
 
 It is of cause not recommended to put your secret data unencrypted into any files,
 you could e.g. use [SopsSecretGenerator](https://github.com/goabout/kustomize-sopssecretgenerator)
-to protected it. GeneralReplacementsTransformer will still work.
+to protect them. GeneralReplacementsTransformer will still work.
 
 ## Using GeneralReplacementsTransformer with ArgoCD
 
-[install](doc/argocd.md)
+GeneralReplacementsTransformer can be added to ArgoCD by [patching](doc/argocd.md)
+an initContainer into the ArgoCD provided `install.yaml`.
+

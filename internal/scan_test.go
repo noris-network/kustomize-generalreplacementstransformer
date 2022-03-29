@@ -144,6 +144,22 @@ func TestTransformer_ScanForValues(t *testing.T) {
 			},
 			want: map[string]interface{}{"exporterImage": ""},
 		},
+		{
+			name: "wildcard suffix",
+			args: args{
+				configFile: "testdata/scan-for-values/config-14.yaml",
+				inputFile:  "testdata/scan-for-values/input-4.yaml",
+			},
+			want: map[string]interface{}{"value": "a"},
+		},
+		{
+			name: "non-suffix wildcard",
+			args: args{
+				configFile: "testdata/scan-for-values/config-15.yaml",
+				inputFile:  "testdata/scan-for-values/input-4.yaml",
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

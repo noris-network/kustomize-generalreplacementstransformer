@@ -1,0 +1,6 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mydbconfig-x8klz
+data:
+  a: a

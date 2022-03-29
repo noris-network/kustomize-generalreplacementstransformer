@@ -1,5 +1,9 @@
 # kustomize-generalreplacementstransformer
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/noris-network/kustomize-generalreplacementstransformer)](https://goreportcard.com/report/github.com/noris-network/kustomize-generalreplacementstransformer)
+[![Latest Release](https://img.shields.io/github/v/release/noris-network/kustomize-generalreplacementstransformer?sort=semver)](https://github.com/noris-network/kustomize-generalreplacementstransformer/releases/latest)
+[![License](https://img.shields.io/github/license/noris-network/kustomize-generalreplacementstransformer)](https://github.com/noris-network/kustomize-generalreplacementstransformer/blob/main/LICENSE)
+
 ## What is this for?
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) is a great tool
 for deploying Applications following GitOps. But Sometimes you need to

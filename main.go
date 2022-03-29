@@ -13,7 +13,7 @@ func main() {
 
 	// check args
 	if len(os.Args) == 2 && os.Args[1] == "version" {
-		fmt.Printf("GeneralReplacementsTransformer %v", build)
+		fmt.Println("GeneralReplacementsTransformer", build)
 		os.Exit(0)
 	}
 	if len(os.Args) != 2 {

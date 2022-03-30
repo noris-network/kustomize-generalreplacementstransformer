@@ -6,11 +6,13 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+type Resource struct {
+	Kind string `yaml:"kind"`
+	Name string `yaml:"name"`
+}
+
 type Replacement struct {
-	Resource struct {
-		Kind string `yaml:"kind"`
-		Name string `yaml:"name"`
-	} `yaml:"resource"`
+	Resource   Resource   `yaml:"resource"`
 	Type       string     `yaml:"type"`
 	Delimiters *[2]string `yaml:"delimiters"`
 }

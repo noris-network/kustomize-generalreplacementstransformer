@@ -32,16 +32,16 @@ func (t *Transformer) ScanForValues() (err error) {
 			if strings.ContainsAny(strings.TrimRight(sel.Resource.Name, "*"), "*") {
 				return errors.New("select values: no prefix or infix wildcards allowed")
 			}
-			prefixMatch := false
-			if strings.HasSuffix(sel.Resource.Name, "*") &&
-				strings.HasPrefix(uuName, strings.TrimRight(sel.Resource.Name, "*")) {
-				prefixMatch = true
+
+			nameMatches, err := nameMatch(uuName, sel.Resource.Name)
+			if err != nil {
+				return fmt.Errorf("select value: %v", err)
 			}
 
 			if sel.Resource.Kind == "" || sel.Resource.Name == "" || sel.Resource.FieldPath == "" {
 				return fmt.Errorf("select value %q: resource kind, name and filepath must not be empty", sel.Name)
 			}
-			if uuKind != sel.Resource.Kind || (uuName != sel.Resource.Name && !prefixMatch) {
+			if uuKind != sel.Resource.Kind || !nameMatches {
 				continue
 			}
 			if (uuKind == "ConfigMap" || uuKind == "Secret") && sel.Resource.FieldPath == "data.*" {

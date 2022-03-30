@@ -1,8 +1,10 @@
 package grt
 
 import (
+	"errors"
 	"fmt"
 	"io"
+	"strings"
 
 	"sigs.k8s.io/kustomize/kyaml/yaml"
 )
@@ -21,7 +23,11 @@ func (t Transformer) WriteStream(w io.Writer) error {
 		for _, repl := range t.config.Replacements {
 			replKind := repl.Resource.Kind
 			replName := repl.Resource.Name
-			if (replKind == "" || replKind == uuKind) && (replName == "" || replName == uuName) {
+			nameMatches, err := nameMatch(uuName, replName)
+			if err != nil {
+				return fmt.Errorf("replacements: %v", err)
+			}
+			if (replKind == "" || replKind == uuKind) && (replName == "" || nameMatches) {
 				switch repl.Type {
 				case "template":
 					err := t.TemplateTransform(uu, repl)
@@ -43,4 +49,18 @@ func (t Transformer) WriteStream(w io.Writer) error {
 	}
 
 	return nil
+}
+
+func nameMatch(name, wildcard string) (bool, error) {
+	if name == wildcard {
+		return true, nil
+	}
+	if strings.ContainsAny(strings.TrimRight(wildcard, "*"), "*") {
+		return false, errors.New("no prefix or infix wildcards allowed")
+	}
+	if strings.HasSuffix(wildcard, "*") &&
+		strings.HasPrefix(name, strings.TrimRight(wildcard, "*")) {
+		return true, nil
+	}
+	return false, nil
 }

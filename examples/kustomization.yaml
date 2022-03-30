@@ -4,10 +4,12 @@ kind: Kustomization
 namespace: demo
 
 resources:
-  - files.yaml
+  - database-config.yaml
+  - user-config.yaml
+  - cache-config.yaml
+  - password-secret.yaml
   - templates.yaml
-  - secret.yaml
-  - environment.yaml
+  - ingress.yaml
 
 transformers:
   - transformer.yaml

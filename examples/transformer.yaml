@@ -4,35 +4,52 @@ metadata:
   name: example
 
 values:
-  hostname: foo.example.com
+  hostname: foo.example.com # can be overwritten by selectValues
 
 selectValues:
   - name: namespace
     resource:
       kind: ConfigMap
-      name: demo-files
+      name: database-config
       fieldPath: metadata.namespace
+  - name: username
+    resource:
+      kind: ConfigMap
+      name: user-config-* # match name with suffix hash
+      fieldPath: data.username
+  - name: db
+    resource:
+      kind: ConfigMap
+      name: database-config
+      fieldPath: data.* # load all, e.g. as db.name, db.host...
+  - name: dummy
+    resource:
+      kind: ConfigMap
+      name: cache-config
+      fieldPath: data.* # load all keys...
+    splat: true # ...to the root level, e.g. cacheHost, cachePort...
   - name: password
     resource:
       kind: Secret
       name: demo-secret
       fieldPath: data.PASSWORD
+  - name: oops
+    resource:
+      kind: ConfigMap
+      name: missing
+      fieldPath: data.abc
 
 replacements:
   - resource:
       kind: ConfigMap
-      name: demo-files
-    type: template
-  - resource:
-      kind: ConfigMap
-      name: demo-templates
+      name: templates-* # match name with suffix hash
     type: template
     delimiters:
       - "[["
       - "]]"
   - resource:
-      kind: ConfigMap
-      name: demo-environment
+      kind: Ingress
+      # no name -> process all Ingresses
     type: template
   - resource:
       kind: Secret

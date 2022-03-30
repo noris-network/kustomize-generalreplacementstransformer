@@ -1,0 +1,19 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: myapp
+spec:
+  tls:
+    - hosts:
+        - "{{.hostname}}"
+      secretName: tls
+  rules:
+    - host: "{{.hostname}}"
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+                name: myapp
+                port:
+                  name: http

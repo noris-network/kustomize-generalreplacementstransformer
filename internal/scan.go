@@ -52,9 +52,6 @@ func (t *Transformer) ScanForValues() (err error) {
 				if !ok {
 					return fmt.Errorf("nestedStringMap: %v/%v: data not found\n", uuKind, uuName)
 				}
-				for k, v := range value {
-					fmt.Printf("## GeneralReplacementsTransformer: %v.%v = %q\n", sel.Name, k, v)
-				}
 				if uuKind == "Secret" {
 					for k, v := range value {
 						b, _ := base64.StdEncoding.DecodeString(v)
@@ -63,10 +60,14 @@ func (t *Transformer) ScanForValues() (err error) {
 				}
 				if sel.Splat {
 					for k, v := range value {
+						fmt.Printf("## GeneralReplacementsTransformer: %v = %q\n", k, v)
 						t.values[k] = v
 					}
 					delete(t.values, sel.Name)
 				} else {
+					for k, v := range value {
+						fmt.Printf("## GeneralReplacementsTransformer: %v.%v = %q\n", sel.Name, k, v)
+					}
 					t.values[sel.Name] = value
 				}
 				found = true

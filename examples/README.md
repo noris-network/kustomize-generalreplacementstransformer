@@ -2,14 +2,12 @@ To see the transformed output, `cd` to this directory and run
 
     kustomize build --enable-alpha-plugins
 
-Sometimes it's useful to see `GeneralReplacementsTransformer`'s debug output.
-When `GeneralReplacementsTransformer` is in your `PATH`, this can be achieved
-by commenting out `- transformer.yaml` in `kustomization.yaml` and running
+To see some log output that might be helpful for debugging set `GRT_LOG=/path/to/logfile`
+in the environment, e.g.run
 
-    kustomize build | GeneralReplacementsTransformer transformer.yaml | grep ^#
+    GRT_LOG=/tmp/grt.log kustomize build --enable-alpha-plugins
 
-This will print out
-
+    cat /tmp/grt.log
     ## GeneralReplacementsTransformer: namespace = "demo"
     ## GeneralReplacementsTransformer: username = "testuser"
     ## GeneralReplacementsTransformer: db.host = "mongodb"

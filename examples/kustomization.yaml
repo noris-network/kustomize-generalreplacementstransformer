@@ -5,15 +5,11 @@ namespace: demo
 
 configMapGenerator:
   - name: cache-config
-    options:
-      disableNameSuffixHash: true
     literals:
       - cacheHost=redis
       - cachePort=6379
       - cacheDb=3
   - name: database-config
-    options:
-      disableNameSuffixHash: true
     literals:
       - name=mydb
       - host=mongodb

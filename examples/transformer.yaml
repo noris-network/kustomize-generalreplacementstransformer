@@ -15,7 +15,7 @@ selectValues:
   - name: username
     resource:
       kind: ConfigMap
-      name: user-config-* # match resource name with suffix hash
+      name: user-config
       fieldPath: data.username
   - name: db
     resource:
@@ -31,7 +31,7 @@ selectValues:
   - name: password
     resource:
       kind: Secret
-      name: demo-secret-* # match name with suffix hash
+      name: demo-secret
       fieldPath: data.PASSWORD
   - name: oops
     resource:
@@ -42,7 +42,7 @@ selectValues:
 replacements:
   - resource:
       kind: ConfigMap
-      name: templates-* # match name with suffix hash
+      name: templates
     type: template
     delimiters: # use non-default delimiters
       - "[["
@@ -53,5 +53,5 @@ replacements:
     type: template
   - resource:
       kind: Secret
-      name: demo-secret-* # match name with suffix hash
+      name: demo-secret
     type: template

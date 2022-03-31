@@ -77,8 +77,27 @@ It is of cause not recommended to put your secret data unencrypted into any file
 you could e.g. use [SopsSecretGenerator](https://github.com/goabout/kustomize-sopssecretgenerator)
 to protect them. GeneralReplacementsTransformer will still work.
 
+## Selecting Values
+
+The `resource`-selector in `selectValues` supports `kind`, `name` and `fieldPath`.
+
+## Inserting Values
+
+The `resource`-selector in `replacements` supports `kind` and `name`, which might
+be empty to select multiple resources.
+
+All string values in yaml content can contain golang template expressions, e.g.:
+
+    key: "{{.value}}"
+
+[Slim-sprig](https://go-task.github.io/slim-sprig/) function are also available:
+
+    key: "deployed at {{ now | date "2006-01-02 }}"
+
+Right now just `type: template` is supported, this might change some time, but there
+are no plans so far.
+
 ## Using GeneralReplacementsTransformer with ArgoCD
 
 GeneralReplacementsTransformer can be added to ArgoCD by [patching](doc/argocd.md)
 an initContainer into the ArgoCD provided `install.yaml`.
-

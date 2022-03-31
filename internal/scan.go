@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"log"
 	"strings"
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -60,13 +61,13 @@ func (t *Transformer) ScanForValues() (err error) {
 				}
 				if sel.Splat {
 					for k, v := range value {
-						fmt.Printf("## GeneralReplacementsTransformer: %v = %q\n", k, v)
+						log.Printf("%v = %q\n", k, v)
 						t.values[k] = v
 					}
 					delete(t.values, sel.Name)
 				} else {
 					for k, v := range value {
-						fmt.Printf("## GeneralReplacementsTransformer: %v.%v = %q\n", sel.Name, k, v)
+						log.Printf("%v.%v = %q\n", sel.Name, k, v)
 					}
 					t.values[sel.Name] = value
 				}
@@ -79,7 +80,7 @@ func (t *Transformer) ScanForValues() (err error) {
 					return fmt.Errorf("pipe: %v", err)
 				}
 				if node.IsNilOrEmpty() {
-					fmt.Printf("## GeneralReplacementsTransformer: %v/%v: %q not found\n", uuKind, uuName, sel.Resource.FieldPath)
+					log.Printf("%v/%v: %q not found\n", uuKind, uuName, sel.Resource.FieldPath)
 					continue
 				}
 				if len(node.Content()) > 0 {
@@ -97,12 +98,12 @@ func (t *Transformer) ScanForValues() (err error) {
 				} else {
 					t.values[sel.Name] = value
 				}
-				fmt.Printf("## GeneralReplacementsTransformer: %v = %q\n", sel.Name, t.values[sel.Name])
+				log.Printf("%v = %q\n", sel.Name, t.values[sel.Name])
 				found = true
 			}
 		}
 		if !found {
-			fmt.Printf("## GeneralReplacementsTransformer: select value %q not found\n", sel.Name)
+			log.Printf("select value %q not found\n", sel.Name)
 		}
 	}
 

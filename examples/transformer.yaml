@@ -7,31 +7,31 @@ values:
   hostname: foo.example.com # can be overwritten by selectValues
 
 selectValues:
-  - name: namespace
-    resource:
+  - name: namespace # key name
+    resource: # resource to extract value from
       kind: ConfigMap
       name: database-config
       fieldPath: metadata.namespace
   - name: username
     resource:
       kind: ConfigMap
-      name: user-config-* # match name with suffix hash
+      name: user-config-* # match resource name with suffix hash
       fieldPath: data.username
   - name: db
     resource:
       kind: ConfigMap
       name: database-config
-      fieldPath: data.* # load all, e.g. as db.name, db.host...
+      fieldPath: data.* # load all kv's, e.g. as db.name, db.host...
   - name: dummy
     resource:
       kind: ConfigMap
       name: cache-config
-      fieldPath: data.* # load all keys...
+      fieldPath: data.* # load all kv's...
     splat: true # ...to the root level, e.g. cacheHost, cachePort...
   - name: password
     resource:
       kind: Secret
-      name: demo-secret
+      name: demo-secret-* # match name with suffix hash
       fieldPath: data.PASSWORD
   - name: oops
     resource:
@@ -44,7 +44,7 @@ replacements:
       kind: ConfigMap
       name: templates-* # match name with suffix hash
     type: template
-    delimiters:
+    delimiters: # use non-default delimiters
       - "[["
       - "]]"
   - resource:
@@ -53,5 +53,5 @@ replacements:
     type: template
   - resource:
       kind: Secret
-      name: demo-secret
+      name: demo-secret-* # match name with suffix hash
     type: template

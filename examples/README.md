@@ -2,21 +2,21 @@ To see the transformed output, `cd` to this directory and run
 
     kustomize build --enable-alpha-plugins
 
-Sometimes it might be useful to see debug `GeneralReplacementsTransformer`'s
-debug output. When `GeneralReplacementsTransformer` is in your `PATH`, this can be
-achieved, e.g., by running
+Sometimes it's useful to see `GeneralReplacementsTransformer`'s debug output.
+When `GeneralReplacementsTransformer` is in your `PATH`, this can be achieved
+by commenting out `- transformer.yaml` in `kustomization.yaml` and running
 
-    GeneralReplacementsTransformer transformer.yaml < <(for f in *.yml; do cat $f; echo "---"; done) | grep ^##
+    kustomize build | GeneralReplacementsTransformer transformer.yaml | grep ^#
 
 This will print out
 
-    ## GeneralReplacementsTransformer: namespace = "myapp"
+    ## GeneralReplacementsTransformer: namespace = "demo"
     ## GeneralReplacementsTransformer: username = "testuser"
-    ## GeneralReplacementsTransformer: db.name = "mydb"
     ## GeneralReplacementsTransformer: db.host = "mongodb"
+    ## GeneralReplacementsTransformer: db.name = "mydb"
     ## GeneralReplacementsTransformer: db.port = "27017"
-    ## GeneralReplacementsTransformer: cacheHost = "redis"
-    ## GeneralReplacementsTransformer: cachePort = "6379"
-    ## GeneralReplacementsTransformer: cacheDb = "3"
-    ## GeneralReplacementsTransformer: password = "GeneralReplacementsTransformer"
+    ## GeneralReplacementsTransformer: dummy.cachePort = "6379"
+    ## GeneralReplacementsTransformer: dummy.cacheDb = "3"
+    ## GeneralReplacementsTransformer: dummy.cacheHost = "redis"
+    ## GeneralReplacementsTransformer: password = "s3cr3t1234"
     ## GeneralReplacementsTransformer: select value "oops" not found

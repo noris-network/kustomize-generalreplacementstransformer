@@ -3,12 +3,35 @@ kind: Kustomization
 
 namespace: demo
 
+configMapGenerator:
+  - name: cache-config
+    options:
+      disableNameSuffixHash: true
+    literals:
+      - cacheHost=redis
+      - cachePort=6379
+      - cacheDb=3
+  - name: database-config
+    options:
+      disableNameSuffixHash: true
+    literals:
+      - name=mydb
+      - host=mongodb
+      - port=27017
+  - name: user-config
+    literals:
+      - username=testuser
+  - name: templates
+    files:
+      - index.tmpl
+
+secretGenerator:
+  - name: demo-secret
+    literals:
+      - PASSWORD=s3cr3t1234
+      - MONGO_URL=mongodb://{{.username}}:{{.password}}@{{.db.host}}:{{.db.port}}/{{.db.name}}
+
 resources:
-  - database-config.yaml
-  - user-config.yaml
-  - cache-config.yaml
-  - password-secret.yaml
-  - templates.yaml
   - ingress.yaml
 
 transformers:

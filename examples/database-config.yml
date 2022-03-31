@@ -1,9 +1,0 @@
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: database-config
-  namespace: myapp
-data:
-  name: mydb
-  host: mongodb
-  port: "27017"

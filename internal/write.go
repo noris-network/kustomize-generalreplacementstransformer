@@ -32,7 +32,12 @@ func (t Transformer) WriteStream(w io.Writer) error {
 				case "template":
 					err := t.TemplateTransform(uu, repl)
 					if err != nil {
-						return fmt.Errorf("transformation failed: %v", err)
+						return fmt.Errorf("template transformation failed: %v", err)
+					}
+				case "substring":
+					err := t.SubstringTransform(uu, repl)
+					if err != nil {
+						return fmt.Errorf("substring replacement failed: %v", err)
 					}
 				default:
 					return fmt.Errorf("replacement type %q not defined", repl.Type)

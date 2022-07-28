@@ -28,7 +28,7 @@ func (t Transformer) TemplateTransform(uu *unstructured.Unstructured, repl Repla
 			return fmt.Errorf("nestedStringMap: %v", err)
 		}
 		if !ok {
-			return fmt.Errorf("%v/%v: %q not found\n", uu.GetKind(), uu.GetName(), "data")
+			return fmt.Errorf("%v/%v: %q not found", uu.GetKind(), uu.GetName(), "data")
 		}
 		for k, v := range data {
 			plain, err := base64.StdEncoding.DecodeString(v)
@@ -51,7 +51,7 @@ func (t Transformer) TemplateTransform(uu *unstructured.Unstructured, repl Repla
 	} else {
 		data, err := yaml.Marshal(uu.Object)
 		if err != nil {
-			return fmt.Errorf("Marshal: %v", err)
+			return fmt.Errorf("marshal: %v", err)
 		}
 		tmpl, err = tmpl.Parse(string(data))
 		if err != nil {

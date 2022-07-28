@@ -2,7 +2,6 @@ package grt
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 
@@ -20,7 +19,7 @@ type optFunc func(*Transformer) error
 
 func WithConfigFile(file string) optFunc {
 	return func(t *Transformer) error {
-		data, err := ioutil.ReadFile(file)
+		data, err := os.ReadFile(file)
 		if err != nil {
 			return err
 		}

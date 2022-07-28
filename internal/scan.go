@@ -51,7 +51,7 @@ func (t *Transformer) ScanForValues() (err error) {
 					return fmt.Errorf("nestedStringMap: %v", err)
 				}
 				if !ok {
-					return fmt.Errorf("nestedStringMap: %v/%v: data not found\n", uuKind, uuName)
+					return fmt.Errorf("nestedStringMap: %v/%v: data not found", uuKind, uuName)
 				}
 				if uuKind == "Secret" {
 					for k, v := range value {
@@ -84,7 +84,7 @@ func (t *Transformer) ScanForValues() (err error) {
 					continue
 				}
 				if len(node.Content()) > 0 {
-					return fmt.Errorf("%v/%v: %q: returns %v nodes\n", uuKind, uuName, sel.Resource.FieldPath, len(node.Content()))
+					return fmt.Errorf("%v/%v: %q: returns %v nodes", uuKind, uuName, sel.Resource.FieldPath, len(node.Content()))
 				}
 				value, err := node.String()
 				if err != nil {

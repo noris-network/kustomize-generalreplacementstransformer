@@ -6,6 +6,8 @@ metadata:
 values:
   hostname: foo.example.com # can be overwritten by selectValues
 
+valuesFile: values.yaml
+
 selectValues:
   - name: namespace # key name
     resource: # resource to extract value from

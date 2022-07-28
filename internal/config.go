@@ -2,6 +2,7 @@ package grt
 
 import (
 	"fmt"
+	"os"
 
 	"gopkg.in/yaml.v2"
 )
@@ -36,6 +37,7 @@ type Config struct {
 		Name string `yaml:"name"`
 	} `yaml:"metadata"`
 	Values       map[string]any `yaml:"values"`
+	ValuesFile   string         `yaml:"valuesFile"`
 	SelectValues []SelectValue  `yaml:"selectValues"`
 	Replacements []Replacement  `yaml:"replacements"`
 }
@@ -50,6 +52,23 @@ func (t *Transformer) configure(config []byte) error {
 
 	if cfg.Values == nil {
 		cfg.Values = map[string]any{}
+	}
+
+	if cfg.ValuesFile != "" {
+		data, err := os.ReadFile(cfg.ValuesFile)
+		if err != nil {
+			return fmt.Errorf("readFile: %v", err)
+		}
+		fileValues := map[string]any{}
+		err = yaml.Unmarshal(data, &fileValues)
+		if err != nil {
+			return fmt.Errorf("unmarshal fileValues: %v", err)
+		}
+		for k, v := range fileValues {
+			if cfg.Values[k] == nil {
+				cfg.Values[k] = v
+			}
+		}
 	}
 
 	t.config = cfg

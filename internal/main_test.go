@@ -35,6 +35,22 @@ func TestNew(t *testing.T) {
 			},
 		},
 		{
+			name: "from string and file",
+			args: args{[]optFunc{WithConfigString(`{values: {a: 1}, valuesFile: "testdata/new/values.yaml"}`)}},
+			want: Transformer{
+				config: Config{Values: map[string]any{"a": 1, "b": 2},
+					ValuesFile: "testdata/new/values.yaml"},
+			},
+		},
+		{
+			name: "from string and file, precedence",
+			args: args{[]optFunc{WithConfigString(`{values: {b: 1}, valuesFile: "testdata/new/values.yaml"}`)}},
+			want: Transformer{
+				config: Config{Values: map[string]any{"b": 1},
+					ValuesFile: "testdata/new/values.yaml"},
+			},
+		},
+		{
 			name: "from empty string",
 			args: args{[]optFunc{WithConfigString(``)}},
 			want: Transformer{

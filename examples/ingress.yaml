@@ -6,9 +6,19 @@ spec:
   tls:
     - hosts:
         - "{{.hostname}}"
+        - "{{.alternativeHostname}}"
       secretName: tls
   rules:
     - host: "{{.hostname}}"
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+                name: myapp
+                port:
+                  name: http
+    - host: "{{.alternativeHostname}}"
       http:
         paths:
           - pathType: ImplementationSpecific

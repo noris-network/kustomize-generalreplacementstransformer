@@ -63,7 +63,7 @@ func New(opts ...optFunc) (Transformer, error) {
 }
 
 func bytes2uu(buf []byte) (*unstructured.Unstructured, error) {
-	obj := map[string]interface{}{}
+	obj := map[string]any{}
 	err := yaml.Unmarshal(buf, obj)
 	if err != nil {
 		return &unstructured.Unstructured{}, fmt.Errorf("unmarshal: %v", err)

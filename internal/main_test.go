@@ -19,7 +19,7 @@ func TestNew(t *testing.T) {
 			name: "from file",
 			args: args{[]optFunc{WithConfigFile("testdata/new/config-a1.yaml")}},
 			want: Transformer{
-				config: Config{Values: map[string]interface{}{"a": 1}},
+				config: Config{Values: map[string]any{"a": 1}},
 			},
 		},
 		{
@@ -31,21 +31,21 @@ func TestNew(t *testing.T) {
 			name: "from string",
 			args: args{[]optFunc{WithConfigString(`{values: {a: 1}}`)}},
 			want: Transformer{
-				config: Config{Values: map[string]interface{}{"a": 1}},
+				config: Config{Values: map[string]any{"a": 1}},
 			},
 		},
 		{
 			name: "from empty string",
 			args: args{[]optFunc{WithConfigString(``)}},
 			want: Transformer{
-				config: Config{Values: map[string]interface{}{}},
+				config: Config{Values: map[string]any{}},
 			},
 		},
 		{
 			name: "from bytes",
 			args: args{[]optFunc{WithConfigBytes([]byte(`{values: {a: 1}}`))}},
 			want: Transformer{
-				config: Config{Values: map[string]interface{}{"a": 1}},
+				config: Config{Values: map[string]any{"a": 1}},
 			},
 		},
 		{

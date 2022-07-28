@@ -23,7 +23,7 @@ func TestTransformer_ScanForValues(t *testing.T) {
 				configFile: "testdata/scan-for-values/config-1.yaml",
 				inputFile:  "testdata/scan-for-values/input-1.yaml",
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"namespace-with-default": "default-namespace",
 				"namespace-no-default":   "",
 				"namespace":              "myspace",
@@ -36,7 +36,7 @@ func TestTransformer_ScanForValues(t *testing.T) {
 				configFile: "testdata/scan-for-values/config-2.yaml",
 				inputFile:  "testdata/scan-for-values/input-1.yaml",
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"db": map[string]string{
 					"host": "mydbhost",
 					"name": "myexampledb",
@@ -49,7 +49,7 @@ func TestTransformer_ScanForValues(t *testing.T) {
 				configFile: "testdata/scan-for-values/config-3.yaml",
 				inputFile:  "testdata/scan-for-values/input-1.yaml",
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"host": "mydbhost",
 				"name": "myexampledb",
 			},
@@ -76,7 +76,7 @@ func TestTransformer_ScanForValues(t *testing.T) {
 				configFile: "testdata/scan-for-values/config-4.yaml",
 				inputFile:  "testdata/scan-for-values/input-1.yaml",
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"secret": map[string]string{
 					"PASSWORD":  "GeneralReplacementsTransformer",
 					"FOO_TOKEN": "foo-bar-baz-123",
@@ -89,7 +89,7 @@ func TestTransformer_ScanForValues(t *testing.T) {
 				configFile: "testdata/scan-for-values/config-5.yaml",
 				inputFile:  "testdata/scan-for-values/input-1.yaml",
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"PASSWORD":  "GeneralReplacementsTransformer",
 				"FOO_TOKEN": "foo-bar-baz-123",
 			},
@@ -116,7 +116,7 @@ func TestTransformer_ScanForValues(t *testing.T) {
 				configFile: "testdata/scan-for-values/config-9.yaml",
 				inputFile:  "testdata/scan-for-values/input-1.yaml",
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"exporterImage": "myexporter:v0.4.2",
 			},
 		},
@@ -142,7 +142,7 @@ func TestTransformer_ScanForValues(t *testing.T) {
 				configFile: "testdata/scan-for-values/config-13.yaml",
 				inputFile:  "testdata/scan-for-values/input-1.yaml",
 			},
-			want: map[string]interface{}{"exporterImage": ""},
+			want: map[string]any{"exporterImage": ""},
 		},
 		{
 			name: "wildcard suffix",
@@ -150,7 +150,7 @@ func TestTransformer_ScanForValues(t *testing.T) {
 				configFile: "testdata/scan-for-values/config-14.yaml",
 				inputFile:  "testdata/scan-for-values/input-4.yaml",
 			},
-			want: map[string]interface{}{"value": "a"},
+			want: map[string]any{"value": "a"},
 		},
 		{
 			name: "non-suffix wildcard",

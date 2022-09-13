@@ -4,13 +4,10 @@ import (
 	"bytes"
 	"os"
 	"testing"
-
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 func TestTransformer_WriteStream(t *testing.T) {
 	type fields struct {
-		uus    []*unstructured.Unstructured
 		config Config
 		values map[string]any
 	}

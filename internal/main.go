@@ -2,7 +2,6 @@ package grt
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -46,19 +45,6 @@ func New(opts ...optFunc) (Transformer, error) {
 			return Transformer{}, err
 		}
 	}
-
-	log.SetPrefix("# GeneralReplacementsTransformer: ")
-	log.SetFlags(0)
-
-	if logDest := os.Getenv("GRT_LOG"); logDest != "" {
-		file, err := os.Create(logDest)
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-		log.SetOutput(file)
-	}
-
 	return t, nil
 }
 

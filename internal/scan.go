@@ -90,8 +90,8 @@ func (t *Transformer) ScanForValues() (err error) {
 				if err != nil {
 					return fmt.Errorf("node2string: %v", err)
 				}
-				value = strings.TrimRight(value, "\"\n")
-				value = strings.TrimLeft(value, `"`)
+				value = strings.TrimRight(value, "\"'\n")
+				value = strings.TrimLeft(value, `"'`)
 				if uuKind == "Secret" {
 					plain, _ := base64.StdEncoding.DecodeString(value)
 					t.values[sel.Name] = string(plain)

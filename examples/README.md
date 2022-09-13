@@ -18,3 +18,6 @@ in the environment, e.g.run
     ## GeneralReplacementsTransformer: dummy.cacheHost = "redis"
     ## GeneralReplacementsTransformer: password = "s3cr3t1234"
     ## GeneralReplacementsTransformer: select value "oops" not found
+
+Input from `kustomize` to the transformer can be dumped to a file when
+`GRT_DUMP_INPUT=/path/to/dumpfile` is set in the environment.

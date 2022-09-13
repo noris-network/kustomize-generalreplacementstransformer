@@ -3,13 +3,27 @@ package grt
 import (
 	"bufio"
 	"bytes"
+	"fmt"
 	"io"
+	"os"
 	"regexp"
 )
 
 const maxLineLength = 5 * 2 << 19 // 5M
 
 func (t *Transformer) ReadStream(r io.Reader) error {
+
+	var dumpTo *os.File
+
+	dumpDest := os.Getenv("GRT_DUMP_INPUT")
+	if dumpDest != "" {
+		file, err := os.Create(dumpDest)
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+		dumpTo = file
+	}
 
 	scanner := bufio.NewScanner(r)
 
@@ -23,6 +37,9 @@ func (t *Transformer) ReadStream(r io.Reader) error {
 	objectIsEmpty := true
 	for scanner.Scan() {
 		line := scanner.Text()
+		if dumpTo != nil {
+			fmt.Fprintln(dumpTo, line)
+		}
 		if line == "---" {
 			if buf.Len() >= 2 {
 				if err := t.RegisterRaw(buf.Bytes()); err != nil {

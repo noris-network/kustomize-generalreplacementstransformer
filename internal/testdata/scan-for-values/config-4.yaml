@@ -8,3 +8,13 @@ selectValues:
       kind: Secret
       name: mysecret
       fieldPath: data.*
+  - name: secret2
+    resource:
+      kind: Secret
+      name: mysecret2
+      fieldPath: stringData.*
+  - name: password2
+    resource:
+      kind: Secret
+      name: mysecret2
+      fieldPath: stringData.PASSWORD2

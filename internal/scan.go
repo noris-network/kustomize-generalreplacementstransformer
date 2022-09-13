@@ -45,15 +45,19 @@ func (t *Transformer) ScanForValues() (err error) {
 			if uuKind != sel.Resource.Kind || !nameMatches {
 				continue
 			}
-			if (uuKind == "ConfigMap" || uuKind == "Secret") && sel.Resource.FieldPath == "data.*" {
-				value, ok, err := unstructured.NestedStringMap(uu.Object, "data")
+			if (uuKind == "ConfigMap" || uuKind == "Secret") && (sel.Resource.FieldPath == "data.*" || sel.Resource.FieldPath == "stringData.*") {
+				field := "data"
+				if sel.Resource.FieldPath == "stringData.*" {
+					field = "stringData"
+				}
+				value, ok, err := unstructured.NestedStringMap(uu.Object, field)
 				if err != nil {
 					return fmt.Errorf("nestedStringMap: %v", err)
 				}
 				if !ok {
 					return fmt.Errorf("nestedStringMap: %v/%v: data not found", uuKind, uuName)
 				}
-				if uuKind == "Secret" {
+				if uuKind == "Secret" && sel.Resource.FieldPath == "data.*" {
 					for k, v := range value {
 						b, _ := base64.StdEncoding.DecodeString(v)
 						value[k] = string(b)
@@ -92,7 +96,7 @@ func (t *Transformer) ScanForValues() (err error) {
 				}
 				value = strings.TrimRight(value, "\"'\n")
 				value = strings.TrimLeft(value, `"'`)
-				if uuKind == "Secret" {
+				if uuKind == "Secret" && strings.HasPrefix(sel.Resource.FieldPath, "data.") {
 					plain, _ := base64.StdEncoding.DecodeString(value)
 					t.values[sel.Name] = string(plain)
 				} else {

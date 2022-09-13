@@ -81,6 +81,10 @@ func TestTransformer_ScanForValues(t *testing.T) {
 					"PASSWORD":  "GeneralReplacementsTransformer",
 					"FOO_TOKEN": "foo-bar-baz-123",
 				},
+				"secret2": map[string]string{
+					"PASSWORD2": "GeneralReplacementsTransformer",
+				},
+				"password2": "GeneralReplacementsTransformer",
 			},
 		},
 		{

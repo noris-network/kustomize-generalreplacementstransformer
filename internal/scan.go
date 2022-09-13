@@ -22,7 +22,7 @@ func (t *Transformer) ScanForValues() (err error) {
 	}()
 
 	for _, sel := range t.config.SelectValues {
-		if sel.Name == "" {
+		if sel.Name == "" && !sel.Splat {
 			return errors.New("select values: name must not be empty")
 		}
 		t.values[sel.Name] = sel.Default

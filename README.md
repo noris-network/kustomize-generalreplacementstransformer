@@ -90,7 +90,9 @@ All string values in yaml content can contain golang template expressions, e.g.:
 
     key: "{{.value}}"
 
-[Slim-sprig](https://go-task.github.io/slim-sprig/) function are also available:
+Values can contain template expressions, see
+[examples -> values -> hostname](examples/transformer.yaml#L7-L8).
+[Slim-sprig](https://go-task.github.io/slim-sprig/) functions are also available:
 
     key: "deployed at {{ now | date "2006-01-02 }}"
 

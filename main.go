@@ -53,6 +53,11 @@ func main() {
 		os.Exit(1)
 	}
 
+	if err := tx.ApplyValuesToValues(); err != nil {
+		log.Printf("error: %v\n", err)
+		os.Exit(1)
+	}
+
 	if err := tx.WriteStream(os.Stdout); err != nil {
 		log.Printf("error: %v\n", err)
 		os.Exit(1)

@@ -1,1 +1,1 @@
-alternativeHostname: foobar.example.com
+alternativeHostname: foobar.{{.domain}}

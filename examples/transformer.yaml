@@ -4,7 +4,8 @@ metadata:
   name: example
 
 values:
-  hostname: foo.example.com # can be overwritten by selectValues
+  hostname: foo.{{.domain}} # can be overwritten by selectValues
+  domain: example.com
 
 valuesFile: values.yaml
 

@@ -9,9 +9,10 @@ import (
 )
 
 type Transformer struct {
-	uus    []*unstructured.Unstructured
-	config Config
-	values map[string]any
+	uus            []*unstructured.Unstructured
+	config         Config
+	values         map[string]any
+	valuesModified bool
 }
 
 type optFunc func(*Transformer) error

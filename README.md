@@ -22,9 +22,9 @@ In order to be called by [kustomize](https://github.com/kubernetes-sigs/kustomiz
 it has to be installed to `$XDG_CONFIG_HOME/kustomize/plugin/noris.net/v1alpha1/generalreplacementstransformer`.
 (`$XDG_CONFIG_HOME` points by default to `$HOME/.config` on Linux and OS X, and `%LOCALAPPDATA%` on Windows.)
 
-Install version 0.11.1 on Linux:
+Install version 0.15.0 on Linux:
 
-    VERSION=0.11.1 OS=linux ARCH=amd64
+    VERSION=0.15.0 OS=linux ARCH=amd64
     INSTALL_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/kustomize/plugin/noris.net/v1alpha1/generalreplacementstransformer"
     curl -Lo GeneralReplacementsTransformer https://github.com/noris-network/kustomize-generalreplacementstransformer/releases/download/v${VERSION}/GeneralReplacementsTransformer_${VERSION}_${OS}_${ARCH}
     chmod +x GeneralReplacementsTransformer

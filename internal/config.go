@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"gopkg.in/yaml.v2"
+	"sigs.k8s.io/kustomize/kyaml/yaml"
 )
 
 type Resource struct {

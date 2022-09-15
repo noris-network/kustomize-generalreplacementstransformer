@@ -81,6 +81,14 @@ to protect them. GeneralReplacementsTransformer will still work.
 
 The `resource`-selector in `selectValues` supports `kind`, `name` and `fieldPath`.
 
+## Loading Values
+
+The transformer manifest can also load values from an external file defined in
+`valuesFile`, see [examples](examples/transformer.yaml#L10). Secrets encrypted with
+[SOPS](https://github.com/mozilla/sops) can be loaded with `secretsFile`, analog
+to `valuesFile`. Values from `valuesFile` overwrite values given in `values`, values
+from `secretsFile` overwrite values from `valuesFile`.
+
 ## Inserting Values
 
 The `resource`-selector in `replacements` supports `kind` and `name`, which might

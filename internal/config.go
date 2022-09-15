@@ -2,8 +2,11 @@ package grt
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"strings"
 
+	"go.mozilla.org/sops/v3/decrypt"
 	"sigs.k8s.io/kustomize/kyaml/yaml"
 )
 
@@ -38,6 +41,7 @@ type Config struct {
 	} `yaml:"metadata"`
 	Values       map[string]any `yaml:"values"`
 	ValuesFile   string         `yaml:"valuesFile"`
+	SecretsFile  string         `yaml:"secretsFile"`
 	SelectValues []SelectValue  `yaml:"selectValues"`
 	Replacements []Replacement  `yaml:"replacements"`
 }
@@ -70,6 +74,22 @@ func (t *Transformer) configure(config []byte) error {
 			if cfg.Values[k] == nil {
 				cfg.Values[k] = v
 			}
+		}
+	}
+
+	if cfg.SecretsFile != "" {
+		data, err := decrypt.File(cfg.SecretsFile, "yaml")
+		if err != nil {
+			log.Print("only yaml encoded secrets of type 'map[string]any{}' are supported")
+			return fmt.Errorf("decrypt.File: %v", strings.ReplaceAll(err.Error(), "\n", ""))
+		}
+		secretValues := map[string]any{}
+		err = yaml.Unmarshal(data, &secretValues)
+		if err != nil {
+			return fmt.Errorf("unmarshal secretValues: %v", err)
+		}
+		for k, v := range secretValues {
+			cfg.Values[k] = v
 		}
 	}
 

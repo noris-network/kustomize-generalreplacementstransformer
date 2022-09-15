@@ -1,2 +1,3 @@
 *.code-workspace
 local
+.sops.yaml

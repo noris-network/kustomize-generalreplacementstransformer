@@ -2,7 +2,9 @@ package grt
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"strings"
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"sigs.k8s.io/kustomize/kyaml/yaml"
@@ -53,6 +55,7 @@ func bytes2uu(buf []byte) (*unstructured.Unstructured, error) {
 	obj := map[string]any{}
 	err := yaml.Unmarshal(buf, obj)
 	if err != nil {
+		dumpYaml(buf)
 		return &unstructured.Unstructured{}, fmt.Errorf("unmarshal: %v", err)
 	}
 	return &unstructured.Unstructured{Object: obj}, nil
@@ -69,4 +72,10 @@ func (t *Transformer) RegisterRaw(buf []byte) error {
 
 func (t *Transformer) Register(uu *unstructured.Unstructured) {
 	t.uus = append(t.uus, uu)
+}
+
+func dumpYaml(s []byte) {
+	for n, line := range strings.Split(string(s), "\n") {
+		log.Printf("yaml[%03d]> %s", n, line)
+	}
 }

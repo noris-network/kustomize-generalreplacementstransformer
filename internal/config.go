@@ -47,6 +47,7 @@ func (t *Transformer) configure(config []byte) error {
 	cfg := Config{}
 	err := yaml.Unmarshal(config, &cfg)
 	if err != nil {
+		dumpYaml(config)
 		return fmt.Errorf("unmarshal config: %v", err)
 	}
 
@@ -62,6 +63,7 @@ func (t *Transformer) configure(config []byte) error {
 		fileValues := map[string]any{}
 		err = yaml.Unmarshal(data, &fileValues)
 		if err != nil {
+			dumpYaml(data)
 			return fmt.Errorf("unmarshal fileValues: %v", err)
 		}
 		for k, v := range fileValues {

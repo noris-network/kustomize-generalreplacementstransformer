@@ -75,6 +75,19 @@ func TestTransformer_ApplyValuesToValues(t *testing.T) {
 			},
 		},
 		{
+			name: "indexed",
+			values: map[string]any{
+				"n2":        "two",
+				"numbers":   []string{"zero", "one", "{{.n2}}"},
+				"selection": "{{index .numbers 2}}",
+			},
+			want: map[string]any{
+				"n2":        "two",
+				"numbers":   []string{"zero", "one", "two"},
+				"selection": "two",
+			},
+		},
+		{
 			name: "nested",
 			values: map[string]any{
 				"a": "*",

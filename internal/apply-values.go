@@ -36,12 +36,23 @@ func (t *Transformer) walk(value *map[string]any) error {
 			t.walk(&kv)
 			continue
 		}
+		if sl, ok := v.([]string); ok {
+			for n, v := range sl {
+				newValue, changed, err := t.replace(v)
+				if err != nil {
+					return fmt.Errorf("walk: key=%q: %v", k, err)
+				}
+				if changed {
+					sl[n] = newValue
+				}
+			}
+			continue
+		}
 		newValue, changed, err := t.replace(v)
 		if err != nil {
 			return fmt.Errorf("walk: key=%q: %v", k, err)
 		}
 		if changed {
-			t.valuesModified = true
 			(*value)[k] = newValue
 		}
 	}
@@ -66,5 +77,9 @@ func (t *Transformer) replace(value any) (string, bool, error) {
 	if strings.Contains(newValue, "<no value>") {
 		return "", false, fmt.Errorf("no value: %q", valstr)
 	}
-	return newValue, newValue != value, nil
+	if newValue == valstr {
+		return "", false, nil
+	}
+	t.valuesModified = true
+	return newValue, true, nil
 }

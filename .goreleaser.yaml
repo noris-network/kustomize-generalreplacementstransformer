@@ -15,6 +15,10 @@ builds:
     binary: GeneralReplacementsTransformer
     ldflags:
       - "-s -w -X main.build={{.Version}}"
+    gcflags:
+      - all=-trimpath
+    asmflags:
+      - all=-trimpath
 checksum:
   name_template: "checksums.txt"
 snapshot:
